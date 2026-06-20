@@ -3,13 +3,21 @@ import { clearSession } from "@/src/utils/token";
 import { Tabs, useRouter } from "expo-router";
 import { Bell, Gift, History, Home } from "lucide-react-native";
 import React from "react";
-import { Alert, Image, Platform, Text, TouchableOpacity, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import {
+  Alert,
+  Image,
+  Platform,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
 import { useDispatch } from "react-redux";
 
 export default function ProtectedLayout() {
   const dispatch = useDispatch();
   const router = useRouter();
+  const insets = useSafeAreaInsets();
 
   const handleLogout = () => {
     Alert.alert(
@@ -49,22 +57,20 @@ export default function ProtectedLayout() {
         headerShown: true,
         headerShadowVisible: false,
         header: () => (
-          <SafeAreaView 
-            edges={["top"]} 
-            style={inlineShadow} 
+          <SafeAreaView
+            edges={["top"]}
+            style={inlineShadow}
             className="bg-white"
           >
             <View className="flex-row items-center justify-between px-6 pb-4 pt-2 bg-white">
               <View className="flex-row items-center gap-3">
-                
-
-                <TouchableOpacity 
+                <TouchableOpacity
                   onPress={handleLogout}
                   activeOpacity={0.7}
                   className="w-10 h-10 rounded-full border-2 border-[#FCD400] items-center justify-center overflow-hidden"
                 >
                   <Image
-                    source={require("@/assets/images/dashboard/user.png")} 
+                    source={require("@/assets/images/dashboard/user.png")}
                     className="w-full h-full"
                     accessibilityLabel="user icon"
                   />
@@ -79,25 +85,29 @@ export default function ProtectedLayout() {
                   </Text>
                 </View>
               </View>
+
               <TouchableOpacity className="relative p-2 rounded-full active:bg-slate-50">
                 <Bell size={24} color="#02022E" strokeWidth={2} />
               </TouchableOpacity>
             </View>
           </SafeAreaView>
         ),
+
         tabBarStyle: {
           backgroundColor: "#FFFFFF",
-          height: Platform.OS === "ios" ? 88 : 85, 
+          height: (Platform.OS === "ios" ? 88 : 65) + insets.bottom,
           borderTopWidth: 0,
           borderTopLeftRadius: 24,
           borderTopRightRadius: 24,
           paddingTop: Platform.OS === "ios" ? 12 : 20,
+          paddingBottom: insets.bottom,
           position: "absolute",
           bottom: 0,
           left: 0,
           right: 0,
           ...inlineShadow,
         },
+
         tabBarShowLabel: false,
       }}
     >
@@ -107,11 +117,21 @@ export default function ProtectedLayout() {
           title: "Home",
           tabBarIcon: ({ color, focused }) => (
             <View className="w-full h-[60px] items-center justify-center">
-              <View className={`items-center justify-center px-4 py-2 rounded-[32px] min-w-[95px] ${focused ? "bg-[#FCD400]" : ""}`}>
-                <Home size={22} color={focused ? "#00003C" : color} strokeWidth={2.5} />
-                <Text 
-                  numberOfLines={1} 
-                  className={`text-[10px] font-inter-bold font-bold uppercase tracking-widest mt-0.5 ${focused ? "text-[#00003C]" : "text-[#94A3B8]"}`}
+              <View
+                className={`items-center justify-center px-4 py-2 rounded-[32px] min-w-[95px] ${
+                  focused ? "bg-[#FCD400]" : ""
+                }`}
+              >
+                <Home
+                  size={22}
+                  color={focused ? "#00003C" : color}
+                  strokeWidth={2.5}
+                />
+                <Text
+                  numberOfLines={1}
+                  className={`text-[10px] font-inter-bold font-bold uppercase tracking-widest mt-0.5 ${
+                    focused ? "text-[#00003C]" : "text-[#94A3B8]"
+                  }`}
                 >
                   Home
                 </Text>
@@ -120,18 +140,28 @@ export default function ProtectedLayout() {
           ),
         }}
       />
-      
+
       <Tabs.Screen
         name="history"
         options={{
           title: "History",
           tabBarIcon: ({ color, focused }) => (
             <View className="w-full h-[60px] items-center justify-center">
-              <View className={`items-center justify-center px-4 py-2 rounded-[32px] min-w-[95px] ${focused ? "bg-[#FCD400]" : ""}`}>
-                <History size={22} color={focused ? "#00003C" : color} strokeWidth={2.5} />
-                <Text 
+              <View
+                className={`items-center justify-center px-4 py-2 rounded-[32px] min-w-[95px] ${
+                  focused ? "bg-[#FCD400]" : ""
+                }`}
+              >
+                <History
+                  size={22}
+                  color={focused ? "#00003C" : color}
+                  strokeWidth={2.5}
+                />
+                <Text
                   numberOfLines={1}
-                  className={`text-[10px] font-inter-bold font-bold uppercase tracking-widest mt-0.5 ${focused ? "text-[#00003C]" : "text-[#94A3B8]"}`}
+                  className={`text-[10px] font-inter-bold font-bold uppercase tracking-widest mt-0.5 ${
+                    focused ? "text-[#00003C]" : "text-[#94A3B8]"
+                  }`}
                 >
                   History
                 </Text>
@@ -140,18 +170,28 @@ export default function ProtectedLayout() {
           ),
         }}
       />
-      
+
       <Tabs.Screen
         name="rewards"
         options={{
           title: "Rewards",
           tabBarIcon: ({ color, focused }) => (
             <View className="w-full h-[60px] items-center justify-center">
-              <View className={`items-center justify-center px-4 py-2 rounded-[32px] min-w-[95px] ${focused ? "bg-[#FCD400]" : ""}`}>
-                <Gift size={22} color={focused ? "#00003C" : color} strokeWidth={2.5} />
-                <Text 
+              <View
+                className={`items-center justify-center px-4 py-2 rounded-[32px] min-w-[95px] ${
+                  focused ? "bg-[#FCD400]" : ""
+                }`}
+              >
+                <Gift
+                  size={22}
+                  color={focused ? "#00003C" : color}
+                  strokeWidth={2.5}
+                />
+                <Text
                   numberOfLines={1}
-                  className={`text-[10px] font-inter-bold font-bold uppercase tracking-widest mt-0.5 ${focused ? "text-[#00003C]" : "text-[#94A3B8]"}`}
+                  className={`text-[10px] font-inter-bold font-bold uppercase tracking-widest mt-0.5 ${
+                    focused ? "text-[#00003C]" : "text-[#94A3B8]"
+                  }`}
                 >
                   Rewards
                 </Text>
