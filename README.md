@@ -147,8 +147,6 @@ npx expo start
 
 ---
 
----
-
 ## Demo Accounts
 
 You can use the following seeded accounts to test the application:
