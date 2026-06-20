@@ -131,6 +131,12 @@ Example:
 EXPO_PUBLIC_BACKEND_URL=http://192.168.1.100:5000/api
 ```
 
+Example(Android Emulator):
+
+```env
+EXPO_PUBLIC_BACKEND_URL=http://10.0.2.2:5000/api
+```
+
 Replace `YOUR_LOCAL_IP` with the IP address of the machine running the backend server.
 
 Start Expo:
