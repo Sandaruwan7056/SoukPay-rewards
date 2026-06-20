@@ -147,6 +147,27 @@ npx expo start
 
 ---
 
+---
+
+## Demo Accounts
+
+You can use the following seeded accounts to test the application:
+
+### User Account 1
+- Email: alice@example.com
+- Password: Password123!
+
+### User Account 2
+- Email: bob@example.com
+- Password: Password123!
+
+### User Account 3
+- Email: carol@example.com
+- Password: Password123!
+
+
+---
+
 ## Architecture Decisions
 
 ### Backend
