@@ -1,5 +1,7 @@
 import { OfflineBanner } from "@/src/components/common/OfflineBanner";
+import { setCredentials } from "@/src/features/auth/authSlice";
 import { useNetwork } from "@/src/hooks/useNetwork";
+import { useAppDispatch } from "@/src/store/hooks";
 import { store } from "@/src/store/store";
 import { getSession } from "@/src/utils/token";
 import { Inter_400Regular, Inter_700Bold, useFonts } from "@expo-google-fonts/inter";
@@ -15,10 +17,10 @@ import "./../global.css";
 
 SplashScreen.preventAutoHideAsync();
 
-export default function RootLayout() {
+function AppContent() {
   const router = useRouter();
   const { isOnline } = useNetwork();
-
+  const dispatch = useAppDispatch(); 
 
   const [fontsLoaded, fontError] = useFonts({
     "Inter-Regular": Inter_400Regular,
@@ -36,6 +38,9 @@ export default function RootLayout() {
 
       try {
         const currentSession = await getSession();
+        if (currentSession) {
+          dispatch(setCredentials({ token: currentSession.token }));
+        }
         setSession(currentSession);
       } catch (e) {
         console.warn("Failed to restore session storage token:", e);
@@ -47,7 +52,6 @@ export default function RootLayout() {
 
     initializeApp();
   }, [fontsLoaded, fontError]);
-
 
   useEffect(() => {
     if (!isAppReady) return;
@@ -64,12 +68,18 @@ export default function RootLayout() {
   }
 
   return (
+    <View className="flex-1 bg-[#FBF8FF]">
+      <Stack screenOptions={{ headerShown: false }} />
+      <OfflineBanner isOnline={isOnline} />
+    </View>
+  );
+}
+
+export default function RootLayout() {
+  return (
     <Provider store={store}>
       <SafeAreaProvider>
-        <View className="flex-1 bg-[#FBF8FF]">
-          <Stack screenOptions={{ headerShown: false }} />
-          <OfflineBanner isOnline={isOnline} />
-        </View>
+        <AppContent />
         <Toast />
       </SafeAreaProvider>
     </Provider>

@@ -12,12 +12,14 @@ import { ScrollView, View } from "react-native";
 
 export default function DashboardScreen() {
   const user = useAppSelector((state: any) => state.auth.user);
+  const token = useAppSelector((state: any) => state.auth.token); 
   const dispatch = useAppDispatch();
 
   const [transactions, setTransactions] = useState<PointLedgerEntry[]>([]);
   const [loading, setLoading] = useState(true);
 
   const loadDashboardData = useCallback(async () => {
+    if (!token) return; 
     try {
       const [userData, transactionArray] = await Promise.all([
         dashboardService.getMe(),
@@ -31,15 +33,16 @@ export default function DashboardScreen() {
     } finally {
       setLoading(false);
     }
-  }, [dispatch]);
+  }, [dispatch ,token]);
 
   useFocusEffect(
     useCallback(() => {
+      if (!token) return;
       if (transactions.length === 0) {
         setLoading(true);
       }
       loadDashboardData();
-    }, [loadDashboardData, transactions.length])
+    }, [loadDashboardData, transactions.length ,token])
   );
 
   return (

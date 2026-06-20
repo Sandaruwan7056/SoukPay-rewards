@@ -29,8 +29,8 @@ export default function LoginScreen() {
       Toast.show({ type: "success", text1: "Login successful" });
       router.replace("/(protected)");
     } catch (error: any) {
-      console.log("LOGIN ERROR:", error.response?.data || error.message);
-      Toast.show({ type: "error", text1: error.message || "Login failed" });
+      console.log("LOGIN ERROR:", error.response?.data);
+      Toast.show({ type: "error", text1: error.response?.data.message || "Login failed" });
     } finally {
       setLoading(false);
     }
