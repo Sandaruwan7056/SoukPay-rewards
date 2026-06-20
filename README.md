@@ -8,6 +8,10 @@
 * Expo Router
 * Redux
 * TypeScript
+* NativeWind
+* Axios
+
+  
 
 ### Backend
 
@@ -149,12 +153,13 @@ npx expo start
 
 ### Mobile
 
-* Expo Router was chosen for file-based navigation and route organization.
-* Redux Toolkit manages global application state.
+* Used Expo Router
+* Redux to manages global application state.
 * Secure token storage is handled using expo-secure-store.
 * API requests are separated into service layers for maintainability.
 * TypeScript is used throughout the project for type safety.
 * NativeWind was used to enable a utility-first styling approach.
+* Axios for API calls
 
 ---
 
@@ -174,7 +179,7 @@ GET /leaderboard
 
 * Returns the top 10 users ranked by lifetime points.
 
-### Offline Support
+### Offline Detection
 
 * Detects network connectivity changes.
 * Displays an offline banner.
